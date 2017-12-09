@@ -1,0 +1,46 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+#tasks {
+  width: 500px;
+}
+
+.task {
+  margin: 10px;
+  background: silver;
+}
+
+.name {
+  display: block;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 10px;
+  border-bottom: 1px solid white;
+}
+
+.task ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.task li {
+  padding: 15px;
+  color: dimGray;
+}
+
+.duration::before {
+  content: 'duration: ';
+}
+
+.duration.short { color: forestGreen;}
+.duration.long  { color: indianRed;}
