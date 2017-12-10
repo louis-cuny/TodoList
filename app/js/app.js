@@ -7,16 +7,19 @@ window.TaskManager = (() => {
     module.tags = [];
 
     module.stringToColour = function (str) {
-        let hash = 0;
-        for (let i = 0; i < str.length; i++) {
-            hash = str.charCodeAt(i) + ((hash << 5) - hash);
+        if (str) {
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                hash = str.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            let colour = '#';
+            for (let i = 0; i < 3; i++) {
+                let value = (hash >> (i * 8)) & 0xFF;
+                colour += ('00' + value.toString(16)).substr(-2);
+            }
+            return colour;
         }
-        let colour = '#';
-        for (let i = 0; i < 3; i++) {
-            let value = (hash >> (i * 8)) & 0xFF;
-            colour += ('00' + value.toString(16)).substr(-2);
-        }
-        return colour;
+        return '#909090';
     }
 
     module.invertColor = function (hex, bw) {
@@ -157,7 +160,14 @@ window.TaskManager = (() => {
 
     module.post_tag = (idtask, tees) => {
         let url = module.db + '/' + idtask + '/tags';
-        console.log(idtask);
+        $.post(url, tees).done(function () {
+            $('#tasks').empty()
+            TaskManager.display_tasks('#tasks');
+        })
+    }
+
+    module.post_task = (tees) => {
+        let url = module.db;
         $.post(url, tees).done(function () {
             $('#tasks').empty()
             TaskManager.display_tasks('#tasks');
@@ -170,7 +180,23 @@ window.TaskManager = (() => {
                 module.tasks[id] = new TaskManager.Task(id, task.name, task.duration, task.tags)
                 $(div_id).append(module.tasks[id].display_item())
             })
-            $(div_id).append($('<div class="col-sm-6">')
+            $(div_id).append($('<div class="col-sm-6">').click(function (event) {
+                    $(this).parent().append($(
+                        '<div class="col-sm-6">' +
+                        '<div class="task newTask">' +
+                        '<form>' +
+                        '<label style="margin-right:5px; " for="name">Name:</label>' +
+                        '<input style="width:120px;" type="text" name="name" id="name" required value="" ><br>' +
+                        '<label  style="margin-right:5px; " for="duration">Duration:</label>' +
+                        '<input style="width:120px;" type="text" name="duration" id="duration" required value="" ><br>' +
+                        '<button onclick="TaskManager.post_task(' + "$(this).parents('form').serialize()" + ')" class="btn btn-primary btn-sm" style="margin-left: 12px" type="button">Add</button>' +
+                        '</form>' +
+                        '</div>' +
+                        '</div>'
+                        )
+                    )
+                }
+            )
                 .append($('<div>').addClass('task').text('Add a new task').css("text-align", "center")))
         }).fail((jqXHR, status, error) => {
             alert('Ajax fail : ' + status + ' ' + error);
