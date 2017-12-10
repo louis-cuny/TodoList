@@ -26,9 +26,9 @@ $app->group('/tasks', function () use ($app, $tasks) {
         $tasks[$id]['name'] = $request->getParam('name');
         $tasks[$id]['duration'] = $request->getParam('duration');
         $tasks[$id]['tags'] = [];
-        foreach ($request->getParam('tags') as $tag) {
+        /*foreach ($request->getParam('tags') as $tag) {
             $tasks[$id]['tags'][$tag] = $tag;
-        }
+        }*/
         file_put_contents('tasks.json', json_encode($tasks));
     });
 
