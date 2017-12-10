@@ -22,7 +22,6 @@ $app->group('/tasks', function () use ($app, $tasks) {
     });
     $app->post('', function (ServerRequestInterface $request) use ($tasks) {
         $id = bin2hex(random_bytes(4));
-        echo $id;
         $tasks[$id]['name'] = $request->getParam('name');
         $tasks[$id]['duration'] = $request->getParam('duration');
         $tasks[$id]['tags'] = [];
