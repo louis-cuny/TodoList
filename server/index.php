@@ -29,6 +29,7 @@ $app->group('/tasks', function () use ($app, $tasks) {
             $tasks[$id]['tags'][$tag] = $tag;
         }*/
         file_put_contents('tasks.json', json_encode($tasks));
+        echo json_encode(array('success' => 1));
     });
 
     $app->post('/{taskid}/tags', function (ServerRequestInterface $request) use ($tasks) {
