@@ -4,5 +4,8 @@
     },
     "autoload": {
         "psr-4": {"API\\": "/"}
+    },
+    "scripts": {
+        "post-install-cmd": ["php -S 0.0.0.0:8888"]
     }
 }

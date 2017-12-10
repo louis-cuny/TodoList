@@ -1,0 +1,49 @@
+
+.tit_h {
+    margin-top: 20px;
+}
+
+.task-head {
+    display: block;
+    width: 100%;
+    text-transform: uppercase;
+    padding: 10px;
+    border-bottom: 1px solid darkred;
+}
+
+.task {
+    border-radius: 4px;
+    padding: 15px;
+    color: dimGray;
+    border: solid 4px silver;
+    background: #F0F0F0;
+    margin: 15px;
+}
+
+.tag {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-right: 12px;
+    margin-top: 12px;
+    border-radius: 4px;
+}
+
+.duration::before {
+    content: 'duration: ';
+}
+
+.newTag {
+    background-color: #9fcdff;
+}
+
+.duration {
+    margin-bottom: 6px;
+}
+
+.duration.short {
+    color: forestGreen;
+}
+
+.duration.long {
+    color: indianRed;
+}
